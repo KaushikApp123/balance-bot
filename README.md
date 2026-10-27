@@ -1,6 +1,9 @@
 [![ci](https://github.com/KaushikApp123/balance-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/KaushikApp123/balance-bot/actions/workflows/ci.yml)
 
 # Self-Balancing Robot (STM32F4 + FreeRTOS)
+## Team
+
+Built as a team project.
 
 A two-wheeled robot that balances itself like an inverted pendulum. An
 STM32F411 (ARM Cortex-M4F) reads an MPU-6050 IMU over I2C with DMA, estimates
