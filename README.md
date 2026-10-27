@@ -1,3 +1,5 @@
+[![ci](https://github.com/KaushikApp123/balance-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/KaushikApp123/balance-bot/actions/workflows/ci.yml)
+
 # Self-Balancing Robot (STM32F4 + FreeRTOS)
 
 A two-wheeled robot that balances itself like an inverted pendulum. An
