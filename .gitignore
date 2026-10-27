@@ -1,0 +1,25 @@
+# builds
+build/
+build-*/
+bridge/.pio/
+*.o
+*.elf
+*.hex
+*.bin
+*.map
+
+# python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.pytest_cache/
+
+# dashboard recordings
+telemetry_*.csv
+
+# editors
+.vscode/
+.idea/
+*.swp
+.DS_Store

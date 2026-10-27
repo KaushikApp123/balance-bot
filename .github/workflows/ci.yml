@@ -1,0 +1,58 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  host:
+    name: Core unit tests + SIL sim tests
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build host core
+        run: |
+          cmake -S firmware -B build-host -DCMAKE_BUILD_TYPE=Release
+          cmake --build build-host -j
+      - name: C unit tests
+        run: ctest --test-dir build-host --output-on-failure
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python tests
+        working-directory: host
+        run: |
+          pip install pytest
+          python -m pytest -q
+
+  firmware:
+    name: STM32 firmware
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ARM toolchain
+        run: sudo apt-get update && sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+      - name: Build
+        run: |
+          cmake -S firmware -B build -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake -DCMAKE_BUILD_TYPE=Release
+          cmake --build build -j
+      - uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: |
+            build/balance_bot.elf
+            build/balance_bot.hex
+            build/balance_bot.map
+
+  bridge:
+    name: ESP32-C3 BLE bridge
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build with PlatformIO
+        run: |
+          pip install platformio
+          pio run -d bridge
