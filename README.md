@@ -113,8 +113,9 @@ PCB: [hardware/README.md](hardware/README.md).
 
 - Firmware builds clean with `-Wall -Wextra -Werror` (64 KB flash, 37 KB RAM).
 - Control core is unit tested on the host and closed-loop tested in the SIL sim.
-- The default gains come from the sim and are a starting point for tuning on
-  the real robot.
+- The robot balances on hardware. The default gains started from the sim and
+  were tuned on the real robot with the BLE dashboard, following the tuning
+  order in [docs/design.md](docs/design.md).
 - Next up: drawing the KiCad schematic and board (`hardware/kicad/`) from the
   spec in `hardware/README.md`.
 
